@@ -4,32 +4,41 @@
 Midi midi(Serial2);
  
 // number of phones
-//const int NUMBER_OF_PHONES = 4;
-const int NUMBER_OF_PHONES = 2;
+const int NUMBER_OF_PHONES = 4;
 // input pins for dial
-//const int DIAL_IN[NUMBER_OF_PHONES] = {19,16,25,26};
-const int DIAL_IN[NUMBER_OF_PHONES] = {19,16};
+const int DIAL_IN[NUMBER_OF_PHONES] = {19,16,25,26};
 // input pin for end of dial
-//const int END_DIAL[NUMBER_OF_PHONES] = {20,17,27,28};
-const int END_DIAL[NUMBER_OF_PHONES] = {20,17};
+const int END_DIAL[NUMBER_OF_PHONES] = {20,17,27,28};
 // input pin for phone handling
-//const int PHONE_HANDLE[NUMBER_OF_PHONES] = {18,15,23,24};
-const int PHONE_HANDLE[NUMBER_OF_PHONES] = {18,15};
+const int PHONE_HANDLE[NUMBER_OF_PHONES] = {18,15,23,24};
 // the sum of clicks when released gently 
-//int sum[NUMBER_OF_PHONES] = {0,0,0,0};
-int sum[NUMBER_OF_PHONES] = {0,0};
+int sum[NUMBER_OF_PHONES] = {0,0,0,0};
 // the state of each phone handle
-//boolean decroche[NUMBER_OF_PHONES] = {false,false,false,false};
-boolean decroche[NUMBER_OF_PHONES] = {false,false};
- 
+boolean decroche[NUMBER_OF_PHONES] = {false,false,false,false};
+// number of phones currently plugged
+int numberOfPhones = 0;
+
 // setup
 void setup() {
   // logging purpose
   SerialUSB.begin();
   // midi connection
   midi.begin(0);
+  // setup the pins of the rotary button
   int i;
-  for (i = 0; i < NUMBER_OF_PHONES; i++) {
+  for (i = 4; i < 8; i++) {
+    pinMode(i, INPUT_PULLUP);
+  }
+  // check how many phones are connected
+  for (i = 4; i < 8; i++) {
+    if (digitalRead(i) == LOW) {
+      numberOfPhones = i-3;
+      SerialUSB.print(numberOfPhones);
+      SerialUSB.println(" telephones de connecte");
+    }
+  }
+  // setup pins of the phones
+  for (i = 0; i < numberOfPhones; i++) {
     pinMode(DIAL_IN[i], INPUT);
     pinMode(END_DIAL[i], INPUT);
     pinMode(PHONE_HANDLE[i], INPUT);
@@ -39,7 +48,7 @@ void setup() {
 // loop
 void loop() {
   int i;
-  for (i = 0; i < NUMBER_OF_PHONES; i++) {
+  for (i = 0; i < numberOfPhones; i++) {
     computePhone(i);
   }
 }
