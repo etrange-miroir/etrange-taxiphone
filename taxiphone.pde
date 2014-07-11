@@ -87,6 +87,8 @@ void computePhone(int index) {
     //SerialUSB.print("Telephone numero ");
     //SerialUSB.print(index+1);
     //SerialUSB.println(" raccroche");
+    SerialUSB.print(100 + note);
+    SerialUSB.print("#");
   }
 }
  
