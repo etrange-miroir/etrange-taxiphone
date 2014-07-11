@@ -33,8 +33,8 @@ void setup() {
   for (i = 4; i < 8; i++) {
     if (digitalRead(i) == LOW) {
       numberOfPhones = i-3;
-      SerialUSB.print(numberOfPhones);
-      SerialUSB.println(" telephones de connecte");
+      //SerialUSB.print(numberOfPhones);
+      //SerialUSB.println(" telephones de connecte");
     }
   }
   // setup pins of the phones
@@ -84,9 +84,9 @@ void computePhone(int index) {
     // send a note to stop the sound
     decroche[index] = false;
     midi.sendNoteOn(1, 100 + index, 127);
-    SerialUSB.print("Telephone numero ");
-    SerialUSB.print(index+1);
-    SerialUSB.println(" raccroche");
+    //SerialUSB.print("Telephone numero ");
+    //SerialUSB.print(index+1);
+    //SerialUSB.println(" raccroche");
   }
 }
  
@@ -96,5 +96,7 @@ void sendNote(int index, int dialedNumber) {
   // so the tens digit stands for the phone, the units digit for the dialed number
   int note = index*10 + dialedNumber;
   midi.sendNoteOn(1, note, 127);
-  SerialUSB.println(note);
+  //SerialUSB.println(note);
+  SerialUSB.print(note);
+  SerialUSB.print("#");
 }

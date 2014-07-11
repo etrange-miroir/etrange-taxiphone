@@ -1,0 +1,24 @@
+{
+  "name": "taxiphone",
+  "version": "0.0.1",
+  "description": "Taxiphone is a [Leaflabs Maple](http://leaflabs.com/devices/maple/) sketch to detect which number has been composed on a rotary phone and send the according MIDI message in order to control the sounds that are played with Ableton Live.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/xseignard/taxiphone.git"
+  },
+  "author": "Xavier Seignard <xavier.seignard@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/xseignard/taxiphone/issues"
+  },
+  "homepage": "https://github.com/xseignard/taxiphone",
+  "dependencies": {
+    "chalk": "^0.5.1",
+    "midi": "^0.9.0",
+    "serialport": "^1.4.2"
+  }
+}
